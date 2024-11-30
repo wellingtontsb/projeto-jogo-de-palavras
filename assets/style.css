@@ -1,13 +1,12 @@
 *{
 	margin: 0;
 	padding: 0;
-	background-color: gray;
+	background-color: #DDD;
 	font-family: 'Helvetica', sans-serif;
 }
 
 h1{
 	text-align: center;
-	color: #FFF;
 	margin: 20px 0;
 }
 
@@ -18,19 +17,82 @@ h1{
 }
 
 .left-area{
-	background-color: orange;
 	flex: 1;
 	width: 100%;
-	height: 500px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .left-area ul li{
 	margin-bottom: 15px;
 }
 
+.word-area{
+	width: 100%;
+}
+
+.word-area input{
+	display: inline-block;
+	width: 99%;
+	margin-top: 30px;
+	height: 40px;
+	padding: 10px 0;
+	font-size: 30px;
+	text-transform: uppercase;
+	outline: none;
+	border-radius: 5px;
+	border: 1px solid #DA710C;
+	text-align: center;
+}
+
+.letters-area{
+	margin-top: 30px;
+}
+
+.letters-area .letter{
+	color: #4c424b;
+	font-family: monospace;
+	padding: 10px 20px;
+	font-size: 40px;
+}
+
+.letters-area .active{
+	background-color: royalblue;
+	color: #FFF;
+	border-radius: 5px;
+}
+
 .right-area{
-	background-color: darkblue;
 	flex: 1;
 	width: 100%;
-	height: 500px;
+	margin-top: 30px;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	height: 350px;
+	overflow-y: scroll;
+}
+
+.right-area .list{
+	height: 30px;
+	width: 40%;
+	margin: 7px 25px;
+}
+
+.right-area .list input{
+	width: 80%;
+	height: 100%;
+	border-radius: 5px;
+	border: 1px solid #000;
+	outline: none;
+}
+
+.right-area .list input::placeholder{
+	text-align: center;
+	font-size: 17px;
+}
+
+.right-area .list input.correct{
+	border: 2px solid #5BC31BE0;
 }

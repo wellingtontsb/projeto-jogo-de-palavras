@@ -1,8 +1,10 @@
 let p = palavras;
+let count = 0;
 let rArea = document.querySelector('.right-area');
 let str = document.querySelector('.word-area input');
 let letras = ['a','e','i','d','p','g','o'];
-
+let tWords = document.querySelector('.total-words');
+let cNumber = document.querySelector('.current-number');
 
 //funcao para adicionar o quantidade de campos necessários de forma automatica
 function addFields() {
@@ -12,12 +14,16 @@ function addFields() {
 		l.classList.add('list');
 		rArea.appendChild(l);
 
-		//insere o numero de letras que cada palavra na sua respectiva posicao
+		//insere o numero de letras de cada palavra na sua respectiva posicao
 		inp.placeholder = `${p[i].length} Letras`;
 		inp.readOnly = true;
 		inp.setAttribute('data-position', i);
 		l.appendChild(inp);
-	}	
+	}
+
+	//informa o total de palavras da lista
+	tWords.innerHTML = p.length;
+	updateQtd(count);
 }
 addFields();
 let rList = document.querySelectorAll('.list input');
@@ -43,15 +49,15 @@ function verifyInvalidLetters(string) {
 
 	//verifica se palavra possui letras invalidas
 	string.forEach((item)=>{
-		let count = 0;
+		let aux = 0;
 		for(let i = 0; i<letras.length; i++){
 			console.log(item, letras[i]);
 			if (item == letras[i]) {
-				count++;
+				aux++;
 				return;
 			}
 
-			if (i == (letras.length - 1) && count == 0) {
+			if (i == (letras.length - 1) && aux == 0) {
 				console.log('Palavra contém letras inválidas');
 				return false;
 			}
@@ -73,20 +79,27 @@ function verifyWordsList(string) {
 
 		rList.forEach((item)=>{
 			if (item.getAttribute('data-position') == list) {
-				item.classList.add('correct');
-				item.value = string;
-				return;
+				if (item.value == '') {
+					item.classList.add('correct');
+					item.value = string;
+					count++;
+					updateQtd(count);
+					return;
+				}else{
+					console.log('palavra já encontrada');
+				}
 			}
-			console.log('entrou');
 		});
-
 	}else{
 		console.log('Palavra não está na lista');
 	}
 }
 
-str.addEventListener('keyup', (e)=>{
+function updateQtd(n) {
+	cNumber.innerHTML = n;
+}
 
+str.addEventListener('keyup', (e)=>{
 	if (e.key === 'Enter') {
 		let newStr = str.value;
 		str.value = '';

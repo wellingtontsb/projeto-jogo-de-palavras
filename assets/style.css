@@ -74,6 +74,12 @@ h1{
 	overflow-y: scroll;
 }
 
+.words-total{
+    margin: 10px 0;
+    text-align: right;
+    font-size: 23px;
+}
+
 .right-area .list{
 	height: 30px;
 	width: 40%;

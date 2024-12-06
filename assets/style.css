@@ -16,6 +16,16 @@ h1{
 	margin: auto;
 }
 
+.msg{
+    font-size: 23px;
+    color: purple;
+    height: 30px;
+}
+
+.msg p{
+	display: none;
+}
+
 .left-area{
 	flex: 1;
 	width: 100%;

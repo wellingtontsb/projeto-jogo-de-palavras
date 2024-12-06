@@ -1,10 +1,11 @@
 let p = palavras;
 let count = 0;
+let letras = ['a','e','i','d','p','g','o'];
 let rArea = document.querySelector('.right-area');
 let str = document.querySelector('.word-area input');
-let letras = ['a','e','i','d','p','g','o'];
 let tWords = document.querySelector('.total-words');
 let cNumber = document.querySelector('.current-number');
+let m = document.querySelector('.msg p');
 
 //funcao para adicionar o quantidade de campos necessários de forma automatica
 function addFields() {
@@ -39,7 +40,7 @@ function verifyCentralLetter(string){
 		}
 	});
 	if (!resp) {
-		console.log('Palavra não tem a letra central');
+		showMsg('Palavra não tem a letra central');
 	}
 }
 
@@ -51,14 +52,13 @@ function verifyInvalidLetters(string) {
 	string.forEach((item)=>{
 		let aux = 0;
 		for(let i = 0; i<letras.length; i++){
-			console.log(item, letras[i]);
 			if (item == letras[i]) {
 				aux++;
 				return;
 			}
 
 			if (i == (letras.length - 1) && aux == 0) {
-				console.log('Palavra contém letras inválidas');
+				showMsg('Palavra contém letras inválidas');
 				return false;
 			}
 		}
@@ -75,8 +75,6 @@ function verifyWordsList(string) {
 
 	//adiona a palavra na sua posicao na lista caso verdade
 	if (list >= 0) {
-		console.log('Palavra está na lista');
-
 		rList.forEach((item)=>{
 			if (item.getAttribute('data-position') == list) {
 				if (item.value == '') {
@@ -86,17 +84,27 @@ function verifyWordsList(string) {
 					updateQtd(count);
 					return;
 				}else{
-					console.log('palavra já encontrada');
+					showMsg('Palavra já encontrada');
 				}
 			}
 		});
 	}else{
-		console.log('Palavra não está na lista');
+		showMsg('Palavra não está na lista');
 	}
 }
 
 function updateQtd(n) {
 	cNumber.innerHTML = n;
+}
+
+function showMsg(msg) {
+	m.innerHTML = msg;
+	console.log(msg);
+	m.style.display = 'block';
+	setTimeout(()=>{
+		m.style.display = 'none';
+		m.innerHTML = '';
+	}, 2000);
 }
 
 str.addEventListener('keyup', (e)=>{
@@ -106,7 +114,7 @@ str.addEventListener('keyup', (e)=>{
 
 		//verifica se palavra tem o minimo de letras possivel
 		if (newStr.length <= 3) {
-			console.log('Palavra não possui número mínimo de letras');
+			showMsg('Palavra não possui número mínimo de letras');
 		}else{
 			verifyCentralLetter(newStr);
 			verifyInvalidLetters(newStr);

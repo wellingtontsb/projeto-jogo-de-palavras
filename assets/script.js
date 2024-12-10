@@ -39,30 +39,38 @@ function verifyCentralLetter(string){
 			return true;
 		}
 	});
+
 	if (!resp) {
 		showMsg('Palavra não tem a letra central');
+		return false;
 	}
+	return true;
 }
 
 function verifyInvalidLetters(string) {
 	//transforma a palavra digitada em array
 	string = string.split('');
+	let resp = true;
 
 	//verifica se palavra possui letras invalidas
-	string.forEach((item)=>{
+	for(let i = 0; i < string.length; i++){
 		let aux = 0;
-		for(let i = 0; i<letras.length; i++){
-			if (item == letras[i]) {
+		for(let j = 0; j < letras.length; j++){
+			if (string[i] == letras[j]) {
 				aux++;
-				return;
+				break;
 			}
-
-			if (i == (letras.length - 1) && aux == 0) {
+			if (j == (letras.length - 1) && aux == 0) {
 				showMsg('Palavra contém letras inválidas');
-				return false;
+				resp = false;
+				break;
 			}
 		}
-	});
+		if (aux==0) {
+			break;
+		}
+	}
+	return resp;
 }
 
 function verifyWordsList(string) {
@@ -85,6 +93,7 @@ function verifyWordsList(string) {
 					return;
 				}else{
 					showMsg('Palavra já encontrada');
+					return;
 				}
 			}
 		});
@@ -116,9 +125,11 @@ str.addEventListener('keyup', (e)=>{
 		if (newStr.length <= 3) {
 			showMsg('Palavra não possui número mínimo de letras');
 		}else{
-			verifyCentralLetter(newStr);
-			verifyInvalidLetters(newStr);
-			verifyWordsList(newStr);
+			if (verifyCentralLetter(newStr)) {
+				if(verifyInvalidLetters(newStr)){
+					verifyWordsList(newStr);
+				}
+			}
 		}
 	}
 });

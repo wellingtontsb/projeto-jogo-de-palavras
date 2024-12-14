@@ -88,6 +88,7 @@ function verifyWordsList(string) {
 				if (item.value == '') {
 					item.classList.add('correct');
 					item.value = string;
+					item.scrollIntoView({block: "end"});
 					count++;
 					updateQtd(count);
 					return;
@@ -128,6 +129,11 @@ str.addEventListener('keyup', (e)=>{
 			if (verifyCentralLetter(newStr)) {
 				if(verifyInvalidLetters(newStr)){
 					verifyWordsList(newStr);
+
+					if (count == p.length) {
+						m.innerHTML = 'Parabéns!!! Você encontrou todas as palavras da lista!!!';
+						str.readOnly = true;
+					}
 				}
 			}
 		}
